@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const app = express()
 
 const port = 3000
+require('./config/mongoose')
 
 // express-handlebars
 app.engine('hbs', exphbs.engine)
