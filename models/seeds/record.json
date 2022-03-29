@@ -1,0 +1,52 @@
+{
+  "results": [
+    {
+      "name": "油錢",
+      "date": "2022-02-27",
+      "amount": "500",
+      "categoryName": "交通出行"
+    },
+    {
+      "name": "高爾夫球",
+      "date": "2022-01-01",
+      "amount": "1200",
+      "categoryName": "休閒娛樂"
+    },
+    {
+      "name": "情人節大餐",
+      "date": "2022-03-14",
+      "amount": "3600",
+      "categoryName": "餐飲食品"
+    },
+    {
+      "name": "保養品",
+      "date": "2022-02-25",
+      "amount": "1800",
+      "categoryName": "其他"
+    },
+    {
+      "name": "除濕機",
+      "date": "2022-03-12",
+      "amount": "5200",
+      "categoryName": "家居物業"
+    },
+    {
+      "name": "早餐",
+      "date": "2022-03-01",
+      "amount": "120",
+      "categoryName": "餐飲食品"
+    },
+    {
+      "name": "悠遊卡",
+      "date": "2022-02-16",
+      "amount": "360",
+      "categoryName": "交通出行"
+    },
+    {
+      "name": "動物園門票",
+      "date": "2022-01-18",
+      "amount": "120",
+      "categoryName": "休閒娛樂"
+    }
+  ]
+}
