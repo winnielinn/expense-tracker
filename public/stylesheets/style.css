@@ -1,0 +1,10 @@
+.expense-container {
+  max-width: 700px;
+  margin: 50px auto;
+}
+
+/*filter*/
+.dropdown, .dropdown-toggle, .dropdown-menu {
+  width:95%;
+  margin: 10px;
+}
