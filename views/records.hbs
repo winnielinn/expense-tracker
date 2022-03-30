@@ -52,7 +52,7 @@
             分類
           </div>
           <div class="col-4 d-flex justify-content-end edit-delete">
-            <a class="btn btn-outline-success m-1" href="./records/{{ this._id }}/edit"><i class="fas fa-edit"></i>
+            <a type="button" class="btn btn-outline-success m-1" href="./records/:id/edit"><i class="fas fa-edit"></i>
               編輯</a>
             <form action="/records/{{ this._id }}?_method=DELETE" method="POST">
               <button type="submit" class="btn btn-outline-danger m-1"><i class="fa fa-trash" aria-hidden="true"></i>
@@ -63,7 +63,8 @@
       </div>
 
       <div class="d-grid gap-2 mt-3 col-3 mx-auto">
-        <button type="button" class="btn btn-warning">新增支出</button>
+        <a type="button" class="btn btn-warning" href="./records/create">
+          新增支出</a>
       </div>
 
     </section>
