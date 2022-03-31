@@ -1,4 +1,4 @@
-<div class="card card-body record-card border border-dark">
+<div class="card card-body record-card border border-light">
   <!--filter-->
   <div class="d-flex">
     <!--monthly filter-->
@@ -23,9 +23,9 @@
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+        {{#each categories}}
+        <li><a class="dropdown-item" href="#">{{this.name}}</a></li>
+        {{/each}}
       </ul>
     </div>
   </div>
@@ -33,32 +33,42 @@
   <!--data panel-->
   <section class="data-panel">
 
-    <div class="row total-amount-display">
+    <div class="row d-flex amount-graph-display">
       <!-- total amount & graph -->
-      <div class="col-6 border border-dark">
-        <p>總金額</p>
-      </div>
-      <div class="col-6 border border-dark">
-        <p>圖表</p>
+      <div class="col-12 amount-display">
+        <span class="fs-3">總金額：</span>
+        <p class="total-amount">{{totalAmount}}</p>
       </div>
     </div>
 
 
     <!-- detail -->
     <div class="row expense-display">
-      <li class="list-group-item d-flex list-group-item-light">
+      {{#each records}}
+      <li class="list-group-item d-flex list-group-item-light rounded mb-1">
         <div class="col-8 d-flex expenses">
-          分類
+          {{#each this.category_doc}}
+          <div class="icon-section">
+            <i class="{{this.icon}} mx-auto"></i>
+          </div>
+          <div class="record-time-section d-flex  flex-column">
+            <span class="category-name">{{../this.name}}</span>
+            <span class="record-time">{{../this.date}}</span>
+          </div>
+          </i>
+          {{/each}}
         </div>
         <div class="col-4 d-flex justify-content-end edit-delete">
-          <a type="button" class="btn btn-outline-success m-1" href="./records/:id/edit"><i class="fas fa-edit"></i>
+          <a type="button edit-button" class="btn btn-outline-success my-auto" href="./records/:id/edit"><i
+              class="fas fa-edit"></i>
             編輯</a>
           <form action="/records/{{ this._id }}?_method=DELETE" method="POST">
-            <button type="submit" class="btn btn-outline-danger m-1"><i class="fa fa-trash" aria-hidden="true"></i>
+            <button type="submit" class="btn btn-outline-danger mt-2"><i class="fa fa-trash" aria-hidden="true"></i>
               刪除</button>
           </form>
         </div>
       </li>
+      {{/each}}
     </div>
 
     <div class="d-grid gap-2 mt-3 col-3 mx-auto">

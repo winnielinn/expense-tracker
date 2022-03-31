@@ -4,7 +4,28 @@ const Category = require('../models/Category')
 const recordController = {
   getRecords: async (req, res) => {
     try {
-      res.render('records')
+      const records = await Record.aggregate([
+        {
+          $lookup:
+          {
+            from: 'categories',
+            localField: 'categoryId',
+            foreignField: '_id',
+            as: 'category_doc'
+          }
+        }
+      ])
+      const totalAmount = await Record.aggregate([
+          {
+            $group:
+            {
+              _id: "Total",
+              sum: { $sum: "$amount" }
+            }
+          }
+      ])
+      const categories = await Category.find().lean()
+      res.render('records', { categories, totalAmount: totalAmount[0].sum, records })
     } catch (err) {
       console.log(err)
     }

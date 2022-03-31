@@ -3,6 +3,7 @@ html {
   background-color: #D3D3D3;
 }
 
+/* data panel */
 .expense-container {
   max-width: 600px;
   margin: 50px auto;
@@ -11,6 +12,34 @@ html {
 .card-body {
   border-radius: 30px;
   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
+}
+
+.amount-graph-display {
+  border-radius: 30px;
+}
+
+.amount-display {
+  border-radius: 15px;
+}
+
+.total-amount {
+  text-align: center;
+  font-size: 80px;
+  color: 	#FA8072;
+}
+
+
+.fa-solid {
+  margin: 10px auto;
+  font-size: 30px;
+}
+
+.category-name {
+  font-size: 20px;
+}
+
+.category-name, .record-time {
+  margin-left: 10px;
 }
 
 
@@ -28,4 +57,8 @@ html {
 .required-items {
   padding-top: 10px;
   padding-left: 20px;
+}
+
+.btn-outline-danger {
+  margin-left: 10px;
 }
