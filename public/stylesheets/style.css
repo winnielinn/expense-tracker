@@ -1,10 +1,31 @@
+body,
+html {
+  background-color: #D3D3D3;
+}
+
 .expense-container {
-  max-width: 700px;
+  max-width: 600px;
   margin: 50px auto;
 }
 
-/*filter*/
+.card-body {
+  border-radius: 30px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08);
+}
+
+
+/* filter */
 .dropdown, .dropdown-toggle, .dropdown-menu {
   width:95%;
   margin: 10px;
+}
+
+/* form */
+.title {
+  margin: 10px 0 20px 175px;
+}
+
+.required-items {
+  padding-top: 10px;
+  padding-left: 20px;
 }
