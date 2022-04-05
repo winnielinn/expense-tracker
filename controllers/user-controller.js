@@ -32,7 +32,7 @@ const userController = {
         })
       }
 
-      if (password !== confirmPassword) console.log('輸入的兩次密碼不相符。')
+      if (password !== confirmPassword) return console.log('輸入的兩次密碼不相符。')
 
       await User.create({
         name,
