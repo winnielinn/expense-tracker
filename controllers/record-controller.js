@@ -87,7 +87,6 @@ const recordController = {
   },
   deleteRecord: async (req, res, next) => {
     try {
-      const userId = req.user._id
       const { id } = req.params
 
       await Record.deleteOne({ _id: id })

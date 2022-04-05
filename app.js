@@ -6,7 +6,12 @@ const flash = require('connect-flash')
 
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const routes = require('./routes')
-const exphbs = require('express-handlebars').create({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers })
+const exphbs = require('express-handlebars').create({
+  defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers, runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  }
+})
 
 const app = express()
 const port = 3000
