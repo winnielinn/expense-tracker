@@ -51,6 +51,10 @@ const userController = {
     } catch (err) {
       console.log(err)
     }
+  },
+  userLogout: async (req, res) => {
+    req.logout()
+    res.status(301).redirect('/users/login')
   }
 }
 
