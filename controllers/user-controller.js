@@ -9,6 +9,13 @@ const userController = {
       console.log(err)
     }
   },
+  userLogin: async (req, res) => {
+    try {
+      res.status(301).redirect('/records')
+    } catch (err) {
+      console.log(err)
+    }
+  },
   getRegisterPage: async (req, res) => {
     try {
       res.render('register')
@@ -40,7 +47,7 @@ const userController = {
         password: hash
       })
 
-      return res.status(301).redirect('/')
+      return res.status(301).redirect('/records')
     } catch (err) {
       console.log(err)
     }

@@ -1,13 +1,13 @@
 const express = require('express')
 const methodOverride = require('method-override')
 const session = require('express-session')
+const passport = require('./config/passport')
 
 const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const routes = require('./routes')
 const exphbs = require('express-handlebars').create({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers })
 
 const app = express()
-
 const port = 3000
 require('./config/mongoose')
 
@@ -21,12 +21,14 @@ app.use(methodOverride('_method'))
 // body-parser
 app.use(express.urlencoded({ extended: true }))
 
+app.use(express.static('public'))
 app.use(session({
   secret: 'mySecretSession',
   resave: true,
   saveUninitialized: false
 }))
-app.use(express.static('public'))
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(routes)
 
