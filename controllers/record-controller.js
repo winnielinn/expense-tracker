@@ -32,7 +32,7 @@ const recordController = {
       const userId = req.user._id
       const { name, date, categoryId, amount } = req.body
 
-      if (!name || !date || categoryId === '請選擇類別' || !amount ) throw new Error('所有欄位都必須填寫！')
+      if (!name || !date || categoryId === '請選擇類別' || !amount) throw new Error('所有欄位都必須填寫！')
 
       Record.create({
         name,
@@ -80,7 +80,19 @@ const recordController = {
         amount
       })
 
-      return res.status(301).redirect(`/records`)
+      return res.status(301).redirect('/records')
+    } catch (err) {
+      next(err)
+    }
+  },
+  deleteRecord: async (req, res, next) => {
+    try {
+      const userId = req.user._id
+      const { id } = req.params
+
+      await Record.deleteOne({ _id: id })
+
+      return res.status(301).redirect('/records')
     } catch (err) {
       next(err)
     }

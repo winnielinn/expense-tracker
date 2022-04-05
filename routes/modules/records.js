@@ -8,5 +8,6 @@ router.post('/', recordController.postRecord)
 router.get('/create', recordController.getCreatePage)
 router.get('/:id/edit', recordController.getEditPage)
 router.put('/:id', recordController.editRecord)
+router.delete('/:id', recordController.deleteRecord)
 
 module.exports = router
