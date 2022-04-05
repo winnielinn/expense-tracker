@@ -4,8 +4,9 @@ const router = express.Router()
 
 const records = require('./modules/records')
 const userController = require('../controllers/user-controller')
+const { authenticator } = require('../middleware/auth')
 
-router.use('/records', records)
+router.use('/records',authenticator, records)
 
 router.get('/users/login', userController.getLoginPage)
 router.post('/users/login', passport.authenticate('local', { failureRedirect: '/users/login' }), userController.userLogin)
