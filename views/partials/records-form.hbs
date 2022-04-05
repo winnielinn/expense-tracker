@@ -15,11 +15,15 @@
     <label for="category" class="col-form-label">類別 <span style="color: #e83e8c;">*</span></label>
   </div>
   <div class="col-8">
-    <select class="form-control" name="category" id="category">
+    <select class="form-control" name="categoryId" id="category">
       <option {{#if record}} selected disabled {{/if}}>請選擇類別</option>
       {{#each categories}}
+      {{#if ../record}}
       <option value="{{ this._id }}" {{#compareObjectID this ../record }} selected {{/compareObjectID}}>{{ this.name }}
       </option>
+      {{else}}
+      <option value="{{ this._id }}">{{ this.name }}</option>
+      {{/if}}
       {{/each}}
     </select>
   </div>

@@ -37,7 +37,7 @@
       <!-- total amount & graph -->
       <div class="col-12 amount-display">
         <span class="fs-3">總金額：</span>
-        <p class="total-amount">{{totalAmount}}</p>
+        <p class="total-amount">$ {{totalAmount}} 元</p>
       </div>
     </div>
 
@@ -57,6 +57,9 @@
           </div>
           </i>
           {{/each}}
+          <div class="row m-3">
+            <span>$ {{this.amount}} 元</span>
+          </div>
         </div>
         <div class="col-4 d-flex justify-content-end edit-delete">
           <a type="button edit-button" class="btn btn-outline-success my-auto" href="./records/{{ this._id }}/edit"><i

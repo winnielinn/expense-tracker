@@ -32,6 +32,15 @@ const recordController = {
   },
   getCreatePage: async (req, res) => {
     try {
+      const categories = await Category.find().lean()
+
+      res.render('create-records', { categories })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  postRecord: async (req, res) => {
+    try {
       res.render('create-records')
     } catch (err) {
       console.log(err)
@@ -42,11 +51,10 @@ const recordController = {
       const { id } = req.params
       const [record, categories] = await Promise.all([
         Record.findById(id).lean(),
-        Category.find({}).lean()
+        Category.find().lean()
       ])
 
       res.render('edit-records', { record, categories })
-
     } catch (err) {
       console.log(err)
     }
