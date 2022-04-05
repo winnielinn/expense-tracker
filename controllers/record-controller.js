@@ -12,7 +12,7 @@ const recordController = {
       for (let i = 0; i < records.length; i++) {
         totalAmount += records[i].amount
       }
-      
+
       res.render('records', { categories, totalAmount, records })
     } catch (err) {
       next(err)
@@ -29,7 +29,20 @@ const recordController = {
   },
   postRecord: async (req, res, next) => {
     try {
-      res.render('create-records')
+      const userId = req.user._id
+      const { name, date, categoryId, amount } = req.body
+
+      if (!name || !date || categoryId === '請選擇類別' || !amount ) throw new Error('所有欄位都必須填寫！')
+
+      Record.create({
+        name,
+        date,
+        categoryId,
+        amount,
+        userId
+      })
+
+      res.status(301).redirect('/records')
     } catch (err) {
       next(err)
     }

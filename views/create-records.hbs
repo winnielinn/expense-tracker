@@ -1,9 +1,10 @@
 <div class="card card-body record-form-card border border-light">
+  <div class="d-flex mt-3">
+    <p class="fst-italic required-items" style="color: #e83e8c;">* 為必填欄位</p>
+    <h3 class="title fw-boldr">請輸入你的支出</h3>
+  </div>
+    {{> messages}}
   <form action="/records" method="POST">
-    <div class="d-flex mt-3">
-      <p class="fst-italic required-items" style="color: #e83e8c;">* 為必填欄位</p>
-      <h3 class="title fw-boldr">請輸入你的支出</h3>
-    </div>
     {{> records-form}}
     <div class="d-grid gap-4 col-6 mx-auto mt-5 mb-3">
       <button type="submit" class="btn btn-outline-warning">新增支出</button>
