@@ -1,4 +1,5 @@
 <div class="card card-body record-card border border-light">
+  {{#if records}}
   <!--filter-->
   <div class="d-flex">
     <!--monthly filter-->
@@ -34,7 +35,7 @@
   <section class="data-panel">
 
     <div class="row d-flex amount-graph-display">
-      <!-- total amount & graph -->
+      <!-- total amount -->
       <div class="col-12 amount-display">
         <span class="fs-3">總金額：</span>
         <p class="total-amount">$ {{totalAmount}} 元</p>
@@ -47,16 +48,14 @@
       {{#each records}}
       <li class="list-group-item d-flex list-group-item-light rounded mb-1">
         <div class="col-8 d-flex expenses">
-          {{#each this.category_doc}}
           <div class="icon-section">
-            <i class="{{this.icon}} mx-auto"></i>
+            <i class="{{this.categoryId.icon}} mx-auto"></i>
           </div>
           <div class="record-time-section d-flex  flex-column">
-            <span class="category-name">{{../this.name}}</span>
-            <span class="record-time">{{../this.date}}</span>
+            <span class="category-name">{{this.name}}</span>
+            <span class="record-time">{{this.date}}</span>
           </div>
           </i>
-          {{/each}}
           <div class="row m-3">
             <span>$ {{this.amount}} 元</span>
           </div>
@@ -73,7 +72,13 @@
       </li>
       {{/each}}
     </div>
-
+    {{else}}
+    <div class="row d-flex amount-graph-display">
+      <div class="col-12 amount-display">
+        <p class="fs-3 text-center">趕快來新增你的支出吧！</p>
+      </div>
+    </div>
+    {{/if}}
     <div class="d-grid gap-2 mt-3 col-3 mx-auto">
       <a type="button" class="btn btn-warning" href="./records/create">
         新增支出</a>
