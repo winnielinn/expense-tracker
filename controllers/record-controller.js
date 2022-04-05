@@ -2,7 +2,7 @@ const Record = require('../models/Record')
 const Category = require('../models/Category')
 
 const recordController = {
-  getRecords: async (req, res) => {
+  getRecords: async (req, res, next) => {
     try {
       const records = await Record.aggregate([
         {
@@ -27,26 +27,26 @@ const recordController = {
       const categories = await Category.find().lean()
       res.render('records', { categories, totalAmount: totalAmount[0].sum, records })
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  getCreatePage: async (req, res) => {
+  getCreatePage: async (req, res, next) => {
     try {
       const categories = await Category.find().lean()
 
       res.render('create-records', { categories })
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  postRecord: async (req, res) => {
+  postRecord: async (req, res, next) => {
     try {
       res.render('create-records')
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  getEditPage: async (req, res) => {
+  getEditPage: async (req, res, next) => {
     try {
       const { id } = req.params
       const [record, categories] = await Promise.all([
@@ -56,7 +56,7 @@ const recordController = {
 
       res.render('edit-records', { record, categories })
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
 }

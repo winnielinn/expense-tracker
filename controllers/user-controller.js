@@ -2,45 +2,37 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 
 const userController = {
-  getLoginPage: async (req, res) => {
+  getLoginPage: async (req, res, next) => {
     try {
       res.render('login')
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  userLogin: async (req, res) => {
+  userLogin: async (req, res, next) => {
     try {
       res.status(301).redirect('/records')
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  getRegisterPage: async (req, res) => {
+  getRegisterPage: async (req, res, next) => {
     try {
       res.render('register')
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  userRegister: async (req, res) => {
+  userRegister: async (req, res, next) => {
     try {
       const { name, email, password, confirmPassword } = req.body
-      const hash = await bcrypt.hash(password, 10)
       const user = await User.findOne({ email })
+      
+      if (!name || !email || !password || !confirmPassword) throw new Error('所有欄位都是必填。')
+      if (password !== confirmPassword) throw new Error('輸入的兩次密碼不相符。')
+      if (user) throw new Error('該使用者已經註冊過。')
 
-      if (user) {
-        console.log('該用戶已經註冊過。')
-        return res.render('register', {
-          name,
-          email,
-          password,
-          confirmPassword
-        })
-      }
-
-      if (password !== confirmPassword) return console.log('輸入的兩次密碼不相符。')
-
+      const hash = await bcrypt.hash(password, 10)
       await User.create({
         name,
         email,
@@ -49,12 +41,17 @@ const userController = {
 
       return res.status(301).redirect('/records')
     } catch (err) {
-      console.log(err)
+      next(err)
     }
   },
-  userLogout: async (req, res) => {
-    req.logout()
-    res.status(301).redirect('/users/login')
+  userLogout: async (req, res, next) => {
+    try {
+      req.logout()
+      req.flash('success_messages', '你已經成功登出。')
+      return res.status(301).redirect('/users/login')
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

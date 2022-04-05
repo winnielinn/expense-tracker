@@ -5,15 +5,16 @@ const User = require('../models/User')
 
 
 passport.use(new LocalStrategy({
-  usernameField: 'email'
+  usernameField: 'email', 
+  passReqToCallback: true
 },
-  async (email, password, done) => {
+  async (req, email, password, done) => {
     try {
       const user = await User.findOne({ email })
-      if (!user) return done(null, false, { message: '找不到使用者。' })
+      if (!user) return done(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤！'))
       
       const match = await bcrypt.compare(password, user.password)
-      if (!match) return done(null, false, { message: '帳號或密碼錯誤。' })
+      if (!match) return done(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤！'))
 
       return done(null, user)
     } catch (err) {
