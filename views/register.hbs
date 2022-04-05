@@ -1,0 +1,47 @@
+<div class="card card-body record-form-card border border-light">
+  <h3 class="title fw-boldr mx-auto">註冊</h3>
+  <form action="/register" method="POST">
+    <div class="row g-4 align-items-center mt-0 m-3">
+      <div class="col-4">
+        <label for="name" class="col-form-label">Name</label>
+      </div>
+      <div class="col-8">
+        <input id="name" type="text" name="name" class="form-control" placeholder="Name">
+      </div>
+      <div class="col-4">
+        <label for="email" class="col-form-label">Email</label>
+      </div>
+      <div class="col-8">
+        <input id="email" type="email" name="email" class="form-control" placeholder="Email">
+      </div>
+      <div class="col-4">
+        <label class="form-label" for="password">Password</label>
+      </div>
+      <div class="col-8">
+        <input class="form-control" id="password" type="password" name="password" class="form-control"
+          placeholder="Password">
+      </div>
+      <div class="col-4">
+        <label class="form-label" for="confirmPassword">Confirm Password</label>
+      </div>
+      <div class="col-8">
+        <input class="form-control" id="confirmPassword" type="password" name="confirmPassword" class="form-control"
+          placeholder="Confirm Password">
+      </div>
+    </div>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col">
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">送出</button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="d-grid gap-2">
+            <a class="btn btn-secondary" href="/register" role="button">忘記密碼</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
