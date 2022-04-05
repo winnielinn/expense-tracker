@@ -39,7 +39,14 @@ const recordController = {
   },
   getEditPage: async (req, res) => {
     try {
-      res.render('edit-records')
+      const { id } = req.params
+      const [record, categories] = await Promise.all([
+        Record.findById(id).lean(),
+        Category.find({}).lean()
+      ])
+
+      res.render('edit-records', { record, categories })
+
     } catch (err) {
       console.log(err)
     }

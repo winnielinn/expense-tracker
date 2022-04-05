@@ -1,8 +1,9 @@
 const express = require('express')
-const exphbs = require('express-handlebars').create({ defaultLayout: 'main', extname: '.hbs' })
 const methodOverride = require('method-override')
 
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 const routes = require('./routes')
+const exphbs = require('express-handlebars').create({ defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers })
 
 const app = express()
 

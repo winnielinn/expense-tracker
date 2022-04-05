@@ -59,7 +59,7 @@
           {{/each}}
         </div>
         <div class="col-4 d-flex justify-content-end edit-delete">
-          <a type="button edit-button" class="btn btn-outline-success my-auto" href="./records/:id/edit"><i
+          <a type="button edit-button" class="btn btn-outline-success my-auto" href="./records/{{ this._id }}/edit"><i
               class="fas fa-edit"></i>
             編輯</a>
           <form action="/records/{{ this._id }}?_method=DELETE" method="POST">
