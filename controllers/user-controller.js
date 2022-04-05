@@ -27,19 +27,21 @@ const userController = {
     try {
       const { name, email, password, confirmPassword } = req.body
       const user = await User.findOne({ email })
-      
+
       if (!name || !email || !password || !confirmPassword) throw new Error('所有欄位都是必填。')
       if (password !== confirmPassword) throw new Error('輸入的兩次密碼不相符。')
       if (user) throw new Error('該使用者已經註冊過。')
 
       const hash = await bcrypt.hash(password, 10)
-      await User.create({
+      const registeredUser = await User.create({
         name,
         email,
         password: hash
       })
 
-      return res.status(301).redirect('/records')
+      req.login(registeredUser, () => {
+        res.redirect('/records')
+      })
     } catch (err) {
       next(err)
     }
