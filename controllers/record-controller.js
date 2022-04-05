@@ -13,7 +13,7 @@ const recordController = {
         totalAmount += records[i].amount
       }
 
-      res.render('records', { categories, totalAmount, records })
+      return res.render('records', { categories, totalAmount, records })
     } catch (err) {
       next(err)
     }
@@ -22,7 +22,7 @@ const recordController = {
     try {
       const categories = await Category.find().lean()
 
-      res.render('create-records', { categories })
+      return res.render('create-records', { categories })
     } catch (err) {
       next(err)
     }
@@ -42,24 +42,49 @@ const recordController = {
         userId
       })
 
-      res.status(301).redirect('/records')
+      return res.status(301).redirect('/records')
     } catch (err) {
       next(err)
     }
   },
   getEditPage: async (req, res, next) => {
     try {
+      const userId = req.user._id
       const { id } = req.params
+
       const [record, categories] = await Promise.all([
         Record.findById(id).lean(),
         Category.find().lean()
       ])
 
-      res.render('edit-records', { record, categories })
+      if (record.userId.toString() !== userId.toString()) throw new Error('無法修改不屬於你的資料！')
+
+      return res.render('edit-records', { record, categories })
     } catch (err) {
       next(err)
     }
   },
+  editRecord: async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const { name, date, categoryId, amount } = req.body
+
+      if (!name || !date || categoryId === '請選擇類別' || !amount) throw new Error('所有欄位都必須填寫！')
+
+      const record = await Record.findById(id)
+
+      await record.updateOne({
+        name,
+        date,
+        categoryId,
+        amount
+      })
+
+      return res.status(301).redirect(`/records`)
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 module.exports = recordController
