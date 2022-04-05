@@ -6,7 +6,7 @@ const recordController = {
     try {
       const userId = req.user._id
       const categories = await Category.find().lean()
-      const records = await Record.find({ userId }).populate('categoryId').sort({ _id: 'asc' }).lean()
+      const records = await Record.find({ userId }).populate('categoryId').sort({ date: 'desc' }).lean()
 
       let totalAmount = 0
       for (let i = 0; i < records.length; i++) {
