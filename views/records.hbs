@@ -59,7 +59,7 @@
               class="fas fa-edit"></i>
             編輯</a>
           <form action="/records/{{ this._id }}?_method=DELETE" method="POST">
-            <button type="submit" class="btn btn-outline-danger mt-2"><i class="fa fa-trash" aria-hidden="true"></i>
+            <button type="submit" class="btn btn-outline-danger mt-2" onclick="confirm `確定要刪除{{this.name}}嗎`"><i class="fa fa-trash" aria-hidden="true"></i>
               刪除</button>
           </form>
         </div>
@@ -69,7 +69,7 @@
     {{else}}
     <div class="row d-flex amount-graph-display">
       <div class="col-12 amount-display">
-          <a class="text-dark" href="/records"><i class="fas fa-arrow-alt-circle-left"></i></a>
+        <a class="text-dark" href="/records"><i class="fas fa-arrow-alt-circle-left"></i></a>
         <p class="fs-3 text-center">目前項目還沒有任何支出喔！</p>
         <p class="fs-3 text-center">趕快新增一筆吧</p>
       </div>
