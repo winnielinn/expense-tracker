@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 
@@ -32,27 +33,53 @@ passport.use(new FacebookStrategy({
   callbackURL: process.env.FACEBOOK_CALLBACK,
   profileFields: ['email', 'displayName']
 },
-  async (accessToken, refreshToken, profile, done) => {
-    try {
-      const { email, name } = profile._json
-      const user = await User.findOne({ email })
+  (accessToken, refreshToken, profile, done) => {
+    const { name, email } = profile._json
 
+    User.findOne({ email })
+      .then(user => {
+        if (user) return done(null, user)
+
+        const randomPassword = Math.random().toString(36).slice(-8)
+        bcrypt
+          .genSalt(10)
+          .then(salt => bcrypt.hash(randomPassword, salt))
+          .then(hash => User.create({
+            name,
+            email,
+            password: hash
+          }))
+          .then(user => done(null, user))
+          .catch(err => done(err))
+      })
+  }
+))
+
+// passport-google
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK
+}, (accessToken, refreshToken, profile, done) => {
+  const { name, email } = profile._json
+
+  User.findOne({ email })
+    .then(user => {
       if (user) return done(null, user)
 
       const randomPassword = Math.random().toString(36).slice(-8)
-      const hash = bcrypt.hash(randomPassword, 10)
-
-      await User.create({
-        email,
-        name,
-        password: hash
-      })
-
-      return done(null, user)
-    } catch (err) {
-      done(err)
-    }
-  }
+      bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(randomPassword, salt))
+        .then(hash => User.create({
+          name,
+          email,
+          password: hash
+        }))
+        .then(user => done(null, user))
+        .catch(err => done(err))
+    })
+}
 ))
 
 passport.serializeUser(async (user, done) => {

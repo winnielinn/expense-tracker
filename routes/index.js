@@ -20,9 +20,17 @@ router.get('/auth/facebook', passport.authenticate('facebook', {
 }))
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/',
+  successRedirect: '/records',
   failureRedirect: '/users/login'
 }))
+
+router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
+
+router.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: '/records',
+  failureRedirect: '/users/login',
+}))
+
 
 router.get('/', (req, res) => res.redirect('/records'))
 router.use('/', generalErrorHandler)
