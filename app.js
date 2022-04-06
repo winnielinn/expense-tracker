@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require('express')
 const methodOverride = require('method-override')
 const session = require('express-session')
@@ -14,7 +18,7 @@ const exphbs = require('express-handlebars').create({
 })
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 require('./config/mongoose')
 
 // express-handlebars
@@ -29,7 +33,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static('public'))
 app.use(session({
-  secret: 'mySecretSession',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: false
 }))
