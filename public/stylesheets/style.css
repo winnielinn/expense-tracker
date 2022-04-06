@@ -28,7 +28,6 @@ html {
   color: 	#FA8072;
 }
 
-
 .fa-solid {
   margin: 10px auto;
   font-size: 30px;
@@ -61,4 +60,8 @@ html {
 
 .btn-outline-danger {
   margin-left: 10px;
+}
+
+.fa-arrow-alt-circle-left {
+  font-size: 30px;
 }
