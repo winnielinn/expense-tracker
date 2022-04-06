@@ -4,26 +4,6 @@
   {{#if records}}
   <!--filter-->
   <div class="d-flex">
-    <!--monthly filter-->
-    <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        {{#if month}}
-        {{month}}
-        {{else}}
-        月份
-        {{/if}}
-      </a>
-
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        {{#each records}}
-        <li>
-          <a class="dropdown-item" href="?month={{monthlyFilter this.date}}&category=">{{monthlyFilter this.date}}</a>
-        </li>
-        {{/each}}
-      </ul>
-    </div>
-
     <!--sort filter-->
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -89,7 +69,8 @@
     {{else}}
     <div class="row d-flex amount-graph-display">
       <div class="col-12 amount-display">
-        <p class="fs-3 text-center">趕快來新增你的支出吧！</p>
+        <p class="fs-3 text-center">目前項目還沒有任何支出喔！</p>
+        <p class="fs-3 text-center">趕快新增一筆吧</p>
       </div>
     </div>
     {{/if}}

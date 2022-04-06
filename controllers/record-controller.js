@@ -11,6 +11,17 @@ const recordController = {
       const records = await Record.find({ userId }).populate('categoryId').sort({ date: 'desc' }).lean()
 
       let totalAmount = 0
+
+      if (category) {
+        const filterdrecords = records.filter(record => {
+          if (record.categoryId.name === category) return record
+        })
+        for (let i = 0; i < filterdrecords.length; i++) {
+          totalAmount += filterdrecords[i].amount
+        }
+        return res.render('records', { categories, totalAmount, records: filterdrecords, category, month })
+      } 
+
       for (let i = 0; i < records.length; i++) {
         totalAmount += records[i].amount
       }
