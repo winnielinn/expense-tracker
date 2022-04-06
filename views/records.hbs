@@ -1,6 +1,6 @@
 <div class="card card-body record-card border border-light">
   {{> messages}}
-  
+
   {{#if records}}
   <!--filter-->
   <div class="d-flex">
@@ -8,12 +8,18 @@
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
         data-bs-toggle="dropdown" aria-expanded="false">
+        {{#if month}}
+        {{month}}
+        {{else}}
         月份
+        {{/if}}
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         {{#each records}}
-        <li><a class="dropdown-item" href="#">{{monthlyFilter this.date}}</a></li>
+        <li>
+          <a class="dropdown-item" href="?month={{monthlyFilter this.date}}&category=">{{monthlyFilter this.date}}</a>
+        </li>
         {{/each}}
       </ul>
     </div>
@@ -22,12 +28,18 @@
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
         data-bs-toggle="dropdown" aria-expanded="false">
+        {{#if category}}
+        {{category}}
+        {{else}}
         類別
+        {{/if}}
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         {{#each categories}}
-        <li><a class="dropdown-item" href="#">{{this.name}}</a></li>
+        <li>
+          <a class="dropdown-item" href="?month=&category={{this.name}}">{{this.name}}</a>
+        </li>
         {{/each}}
       </ul>
     </div>

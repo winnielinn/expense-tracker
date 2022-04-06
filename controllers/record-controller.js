@@ -5,6 +5,8 @@ const recordController = {
   getRecords: async (req, res, next) => {
     try {
       const userId = req.user._id
+      const { category } = req.query
+      const { month } = req.query
       const categories = await Category.find().lean()
       const records = await Record.find({ userId }).populate('categoryId').sort({ date: 'desc' }).lean()
 
@@ -13,7 +15,7 @@ const recordController = {
         totalAmount += records[i].amount
       }
 
-      return res.render('records', { categories, totalAmount, records })
+      return res.render('records', { categories, totalAmount, records, category, month })
     } catch (err) {
       next(err)
     }
