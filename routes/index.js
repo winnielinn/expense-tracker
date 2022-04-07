@@ -7,8 +7,8 @@ const users = require('./modules/users')
 const { authenticator } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
-router.use('/records', authenticator, records)
 router.use('/users', users)
+router.use('/records', authenticator, records)
 
 router.get('/auth/facebook', passport.authenticate('facebook', {
   scope: ['email', 'public_profile']
