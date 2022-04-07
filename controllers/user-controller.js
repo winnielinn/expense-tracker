@@ -32,7 +32,7 @@ const userController = {
       if (password !== confirmPassword) throw new Error('輸入的兩次密碼不相符。')
       if (user) throw new Error('該使用者已經註冊過。')
 
-      const hash = await bcrypt.hash(password, 10)
+      const hash = await bcrypt.hashSync(password, 10)
       const registeredUser = await User.create({
         name,
         email,

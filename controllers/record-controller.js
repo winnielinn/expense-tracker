@@ -6,7 +6,6 @@ const recordController = {
     try {
       const userId = req.user._id
       const { category } = req.query
-      const { month } = req.query
       const categories = await Category.find().lean()
       const records = await Record.find({ userId }).populate('categoryId').sort({ date: 'desc' }).lean()
 
@@ -19,14 +18,14 @@ const recordController = {
         for (let i = 0; i < filterdrecords.length; i++) {
           totalAmount += filterdrecords[i].amount
         }
-        return res.render('records', { categories, totalAmount, records: filterdrecords, category, month })
+        return res.render('records', { categories, totalAmount, records: filterdrecords, category })
       } 
 
       for (let i = 0; i < records.length; i++) {
         totalAmount += records[i].amount
       }
 
-      return res.render('records', { categories, totalAmount, records, category, month })
+      return res.render('records', { categories, totalAmount, records, category })
     } catch (err) {
       next(err)
     }
