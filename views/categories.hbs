@@ -1,1 +1,29 @@
-<h1>category</h1>
+<div class="card card-body record-form-card border border-light">
+  <a class="text-dark" href="/records"><i class="fas fa-arrow-alt-circle-left"></i></a>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Category Name</th>
+        <th scope="col">功能操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each categories}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>
+          <button type="button" class="btn btn-link">
+            <a class="btn btn-link" href="/admin/categories/{{this.id}}">
+              <i class="fas fa-edit"></i>編輯
+            </a>
+          </button>
+          <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{this.name}}嗎？`)"><i
+                class="fa fa-trash" aria-hidden="true"></i>刪除</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

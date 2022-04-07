@@ -4,7 +4,8 @@ const Category = require('../models/Category')
 const categoryController = {
   getCategoryPage: async(req, res, next) => {
     try {
-      res.render('categories')
+      const categories = await Category.find({})
+      res.render('categories', { categories })
     } catch (err) {
       next(err)
     }
