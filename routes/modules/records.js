@@ -11,6 +11,8 @@ router.get('/:id/edit', recordController.getEditPage)
 router.put('/:id', recordController.editRecord)
 router.delete('/:id', recordController.deleteRecord)
 
+router.get('/categories/:id', categoryController.getCategoryPage)
+
 router.get('/categories', categoryController.getCategoryPage)
 
 module.exports = router
