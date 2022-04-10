@@ -5,12 +5,15 @@
   {{#if category}}
   <form class="row g-3 mt-3" action="/records/categories/{{category.id}}?_method=PUT" method="POST">
     <div class="col-auto">
-      <input type="category" class="form-control" id="category" value="{{category.name}}">
+      <input type="category" class="form-control" id="categoryName" name="categoryName" value="{{category.name}}">
+    </div>
+    <div class="col-auto">
+      <input type="text" class="form-control" id="categoryIcon" name="categoryIcon" value="{{category.icon}}">
     </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-3">修改</button>
-      <a class="text-decoration-none" href="/records/categories">新增一個新類別?</a>
     </div>
+    <a class="text-decoration-none mt-0" href="/records/categories">新增一個新類別?</a>
   </form>
   {{else}}
   <form class="row g-3 mt-3" action="/records/categories" method="POST">
@@ -18,7 +21,8 @@
       <input type="text" class="form-control" id="categoryName" name="createdCategory" placeholder="Category Name*">
     </div>
     <div class="col-auto">
-      <input type="text" class="form-control" id="categoryIcon" name="createdCategoryIcon" placeholder="Icon*: fas-solid ...">
+      <input type="text" class="form-control" id="categoryIcon" name="createdCategoryIcon"
+        placeholder="Icon: fas-solid ...">
     </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-warning mb-3">新增</button>

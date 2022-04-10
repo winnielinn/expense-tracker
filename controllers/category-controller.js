@@ -21,7 +21,7 @@ const categoryController = {
 
       const category = await Category.findOne({ name: createdCategory })
 
-      if (category) throw new Error('該分類已經存在')
+      if (category) throw new Error('該分類已經存在！')
 
       await Category.create({
         name: createdCategory,
@@ -30,7 +30,26 @@ const categoryController = {
 
       return res.status(301).redirect('/records/categories')
     } catch (err) {
-      next (err)
+      next(err)
+    }
+  },
+  editCategory: async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const { categoryName, categoryIcon } = req.body
+
+      if (!categoryName) throw new Error('分類名稱必須填寫！')
+
+      const category = await Category.findById(id)
+
+      await category.updateOne({
+        name: categoryName,
+        icon: categoryIcon
+      })
+
+      return res.status(301).redirect('/records/categories')
+    } catch (err) {
+      next(err)
     }
   }
 }
