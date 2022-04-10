@@ -1,5 +1,5 @@
 const Category = require('../models/Category')
-
+const Record = require('../models/Record')
 
 const categoryController = {
   getCategoryPage: async (req, res, next) => {
@@ -46,6 +46,18 @@ const categoryController = {
         name: categoryName,
         icon: categoryIcon
       })
+
+      return res.status(301).redirect('/records/categories')
+    } catch (err) {
+      next(err)
+    }
+  },
+  deleteCategory: async (req, res, next) => {
+    try {
+      const { id } = req.params
+
+      await Category.deleteOne({ _id: id })
+      await Record.deleteOne({ categoryId: id })
 
       return res.status(301).redirect('/records/categories')
     } catch (err) {

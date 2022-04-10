@@ -49,7 +49,7 @@
             </a>
           </button>
           <form action="/records/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{this.name}}嗎？`)"><i
+            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除{{this.name}}嗎？所有與此分類相關的支出項目將會一並刪除。`)"><i
                 class="fa fa-trash" aria-hidden="true"></i>刪除</button>
           </form>
         </td>

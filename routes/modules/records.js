@@ -15,5 +15,6 @@ router.get('/categories/:id', categoryController.getCategoryPage)
 router.get('/categories', categoryController.getCategoryPage)
 router.post('/categories', categoryController.createCategory)
 router.put('/categories/:id', categoryController.editCategory)
+router.delete('/categories/:id', categoryController.deleteCategory)
 
 module.exports = router
