@@ -14,6 +14,24 @@ const categoryController = {
     } catch (err) {
       next(err)
     }
+  },
+  createCategory: async (req, res, next) => {
+    try {
+      const { createdCategory, createdCategoryIcon } = req.body
+
+      const category = await Category.findOne({ name: createdCategory })
+
+      if (category) throw new Error('該分類已經存在')
+
+      await Category.create({
+        name: createdCategory,
+        icon: createdCategoryIcon
+      })
+
+      return res.status(301).redirect('/records/categories')
+    } catch (err) {
+      next (err)
+    }
   }
 }
 
