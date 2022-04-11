@@ -1,31 +1,48 @@
 const Record = require('../models/Record')
 const Category = require('../models/Category')
+const { set } = require('express/lib/application')
 
 const recordController = {
   getRecords: async (req, res, next) => {
     try {
       const userId = req.user._id
-      const { category } = req.query
+      const { year, category } = req.query
       const categories = await Category.find().lean()
       const records = await Record.find({ userId }).populate('categoryId').sort({ date: 'desc' }).lean()
 
       let totalAmount = 0
 
+      let yearList = new Set()
+
+      records.forEach(record => {
+        yearList = yearList.add(new Date(record.date).getFullYear())
+      })
+
+      // 篩選分類, 年份
       if (category) {
-        const filterdrecords = records.filter(record => {
+        const filterdRecords = records.filter(record => {
           if (record.categoryId.name === category) return record
         })
-        for (let i = 0; i < filterdrecords.length; i++) {
-          totalAmount += filterdrecords[i].amount
+        for (let i = 0; i < filterdRecords.length; i++) {
+          totalAmount += filterdRecords[i].amount
         }
-        return res.render('records', { categories, totalAmount, records: filterdrecords, category })
-      } 
+        return res.render('records', { categories, totalAmount, records: filterdRecords, yearList, year, category })
+      } else if (year) {
+        const filteredYear = records.filter(record => {
+          if (year === record.date.substr(0, 4)) return record
+        })
+        for (let i = 0; i < filteredYear.length; i++) {
+          totalAmount += filteredYear[i].amount
+        }
+        return res.render('records', { categories, totalAmount, records: filteredYear, yearList, year, category })
+      }
 
+      // 總金額
       for (let i = 0; i < records.length; i++) {
         totalAmount += records[i].amount
       }
 
-      return res.render('records', { categories, totalAmount, records, category })
+      return res.render('records', { categories, totalAmount, records, yearList, year, category })
     } catch (err) {
       next(err)
     }
