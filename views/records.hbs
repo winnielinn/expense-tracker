@@ -4,6 +4,26 @@
   {{#if records}}
   <!--filter-->
   <div class="d-flex">
+    <!--year filter-->
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        {{#if year}}
+        {{year}}
+        {{else}}
+        年份
+        {{/if}}
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {{#each yearList}}
+        <li>
+          <a class="dropdown-item" href="?year={{this}}&category=">{{this}}</a>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+
     <!--sort filter-->
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -18,7 +38,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         {{#each categories}}
         <li>
-          <a class="dropdown-item" href="?month=&category={{this.name}}">{{this.name}}</a>
+          <a class="dropdown-item" href="?year=&category={{this.name}}">{{this.name}}</a>
         </li>
         {{/each}}
       </ul>
@@ -32,7 +52,7 @@
       <!-- total amount -->
       <div class="col-12 amount-display">
         <span class="fs-3">總金額：</span>
-        <p class="total-amount">$ {{totalAmount}} 元</p>
+        <p class="total-amount">$ {{setAmount totalAmount}} 元</p>
       </div>
     </div>
 
@@ -51,7 +71,7 @@
           </div>
           </i>
           <div class="row m-3">
-            <span>$ {{this.amount}} 元</span>
+            <span>$ {{setAmount this.amount}} 元</span>
           </div>
         </div>
         <div class="col-4 d-flex justify-content-end edit-delete">
