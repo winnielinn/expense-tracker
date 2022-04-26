@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcryptjs')
+const nodemailer = require('../config/nodemailer')
 
 const userController = {
   getLoginPage: async (req, res, next) => {
@@ -51,6 +52,26 @@ const userController = {
       req.logout()
       req.flash('success_messages', '你已經成功登出。')
       return res.status(301).redirect('/users/login')
+    } catch (err) {
+      next(err)
+    }
+  },
+  getForgetPasswordPage: async (req, res, next) => {
+    try {
+      res.render('forget-password')
+    } catch (err) {
+      next(err)
+    }
+  },
+  forgetPassword: async (req, res, next) => {
+    try {
+      const { email } = req.body
+      const user = await User.findOne({ email })
+      if (!user) throw new Error('該信箱尚未被註冊過！')
+
+      const verifyCode = Math.random().toString(36).slice(-8)
+      nodemailer(user, email, verifyCode)
+      return res.render('reset-password', { verifyCode })
     } catch (err) {
       next(err)
     }
