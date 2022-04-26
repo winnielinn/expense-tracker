@@ -66,12 +66,45 @@ const userController = {
   forgetPassword: async (req, res, next) => {
     try {
       const { email } = req.body
+      if (!email) throw new Error('信箱欄位為必填！')
       const user = await User.findOne({ email })
       if (!user) throw new Error('該信箱尚未被註冊過！')
 
       const verifyCode = Math.random().toString(36).slice(-8)
       nodemailer(user, email, verifyCode)
-      return res.render('reset-password', { verifyCode })
+      return res.render('reset-password', { email, verifyCode })
+    } catch (err) {
+      next(err)
+    }
+  },
+  getResetPasswordPage: async (req, res, next) => {
+    try {
+      res.render('reset-password')
+    } catch (err) {
+      next(err)
+    }
+  },
+  postResetPassword: async (req, res, next) => {
+    try {
+      const { email, verifyCode, isVerifyCodeTrue, newPassword, confirmNewPassword } = req.body
+      if (!email || !verifyCode || !newPassword || !confirmNewPassword) throw new Error('所有欄位都必填！')
+
+      if (verifyCode !== isVerifyCodeTrue) {
+        req.flash('error_messages', '驗證碼錯誤，請重寄驗證碼！')
+        return res.redirect('/users/forgetPassword')
+      }
+
+      if (newPassword !== confirmNewPassword) throw new Error('輸入的兩次密碼不相符！')
+
+      const user = await User.findOne({ email })
+      if (!user) throw new Error('使用者不存在！')
+
+      const hash = await bcrypt.hashSync(newPassword, 10)
+      await user.updateOne({
+        password: hash
+      })
+
+      return res.redirect('/users/login')
     } catch (err) {
       next(err)
     }

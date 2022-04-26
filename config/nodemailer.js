@@ -18,7 +18,7 @@ module.exports = (user, email, verifyCode) => {
     subject: '家庭記帳本-重設密碼',
     html: `
           <p>${user.name} 您好,</p>
-          <p>請回到忘記密碼頁面後輸入 <strong>${verifyCode}</strong> 進行重設密碼的動作。</p>
+          <p>請回到頁面後輸入 <strong>${verifyCode}</strong> 進行重設密碼的動作。</p>
         `
     ,
   }
