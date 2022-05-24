@@ -7,7 +7,7 @@ Expense Tracker built with Node.js, express and MongoDB for taking a record for 
 ![GITHUB](https://raw.githubusercontent.com/winnielinn/expense-tracker/main/public/login_page.png "login_page")
 
 *Manage your expenses in home page.*
-![GITHUB](https://raw.githubusercontent.com/winnielinn/expense-tracker/fea44e2fd94f0e217150883fa8d22b06bee65bde/public/home_page.png "home_page")
+![GITHUB](https://raw.githubusercontent.com/winnielinn/expense-tracker/main/public/home_page.png "home_page")
 
 ## **Getting Start**
 
