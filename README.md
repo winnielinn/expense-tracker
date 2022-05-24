@@ -62,6 +62,6 @@ npm run dev
 
 8. Kindly visit `https://stormy-forest-44412.herokuapp.com/` to use this app online.
 
-## **Contributor**
+## Contributor
 
 > [Winnie Lin](https://github.com/winnielinn)
