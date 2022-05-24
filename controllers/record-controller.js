@@ -63,7 +63,7 @@ const recordController = {
 
       if (!name || !date || categoryId === '請選擇類別' || !amount) throw new Error('所有欄位都必須填寫！')
 
-      Record.create({
+      await Record.create({
         name,
         date,
         categoryId,
